@@ -17,7 +17,9 @@ set(SOURCES
         src/main.mm
         src/AppDelegate.h
         src/AppDelegate.mm
-        )
+        src/macos/WindowTracker.h
+        src/macos/WindowTracker.mm
+)
 
 add_executable(derail MACOSX_BUNDLE ${SOURCES})
 
@@ -26,7 +28,7 @@ target_link_libraries(derail ${COCOA_LIBRARY} ${CARBON_LIBRARY})
 set_target_properties(derail PROPERTIES
         MACOSX_BUNDLE_GUI_IDENTIFIER io.petters.derail
         MACOSX_BUNDLE_BUNDLE_NAME derail
-#        MACOSX_BUNDLE_INFO_PLIST ${CMAKE_SOURCE_DIR}/resources/Info.plist
+        MACOSX_BUNDLE_INFO_PLIST ${CMAKE_SOURCE_DIR}/resources/Info.plist
 )
 
 # Include tests
