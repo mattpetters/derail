@@ -1,12 +1,15 @@
-cmake_minimum_required(VERSION 3.29)
+cmake_minimum_required(VERSION 3.16)
 project(derail)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Find required macOS frameworks
-find_library(COCOA_LIBRARY Cocoa)
-find_library(CARBON_LIBRARY Carbon)
+if(APPLE)
+    # Find required macOS frameworks
+    find_library(COCOA_LIBRARY Cocoa)
+    find_library(CARBON_LIBRARY Carbon)
+endif()
+
 
 # Include directories
 include_directories(${CMAKE_SOURCE_DIR}/include)
@@ -23,7 +26,10 @@ set(SOURCES
 
 add_executable(derail MACOSX_BUNDLE ${SOURCES})
 
-target_link_libraries(derail ${COCOA_LIBRARY} ${CARBON_LIBRARY})
+# Link required macOS frameworks        
+if(APPLE)
+        target_link_libraries(derail ${COCOA_LIBRARY} ${CARBON_LIBRARY})
+endif()
 # Set properties for macOS bundle
 set_target_properties(derail PROPERTIES
         MACOSX_BUNDLE_GUI_IDENTIFIER io.petters.derail
